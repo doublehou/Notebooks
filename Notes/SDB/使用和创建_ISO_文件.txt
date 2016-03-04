@@ -1,0 +1,37 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2015-12-08T22:29:12+08:00
+
+====== 使用和创建 ISO 文件 ======
+Created 星期二 08 十二月 2015
+
+简介
+
+ISO 是一种光盘镜像文件格式，在 Linux 其文件格式为 iso9660，一般具有以下规范：
+
+	最多只包含 8 级子目录（可以用 RockRidge Extension 增大这个限制）
+	文件名最大 32 字符
+	文件大小不超过 650 M
+
+使用 ISO 文件
+
+通常，Linux 系统的内核 (Kernel) 是支持 iso9660 文件格式的，如果不支持你需重新编译内核增加对其的支持。只需简单使用以下命令就可以从 /path 目录中读到它的内容了：
+
+mount -t iso9660 -o loop xxx.iso /path
+
+在KDE桌面下，您还可以使用如下方式访问 ISO 映像：
+
+右键点击 ISO 文件 -> 动作 -> ISO9600 view 。
+创建 ISO 文件
+
+在此介绍 mkisofs 命令来制作 ISO 文件。
+
+mkisofs -o name.iso /path
+
+将 /path 这个目录制作成 name.iso 映像档。
+
+mkisofs -o name.iso -r /path
+
+将 /path 这个目录制作成 name.iso 映像档，并指定为 Rock Ridge 格式（使用 Rock Ridge 格式，可以保存档案相关的权限）。-J 选项则使用 Joliet 格式。
+
+mkisofs 命令可以和 cdrecord 命令一起使用直接烧录。 

@@ -1,0 +1,27 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T10:48:47+00:00
+
+====== 3-使用字符串 ======
+Created 星期五 04 三月 2016
+
+1 基本操作
+
+2 字符串格式化
+	模板字符串
+
+3 字符串格式化-完整版
+
+4 字符串方法
+	1 find
+	2 join
+	3 lower
+	4 replace
+	5 split
+	6 strip
+	7 translate 
+	
+5 小结
+	新函数：  string.capwords(s[,seq])
+			string.maketrans(from,to)
+

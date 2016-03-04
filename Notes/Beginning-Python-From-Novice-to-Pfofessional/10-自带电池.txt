@@ -1,0 +1,36 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T14:27:35+00:00
+
+====== 10-自带电池 ======
+Created 星期五 04 三月 2016
+
+1 模块
+	1 模块是程序
+	2 模块用于定义
+		1 在模块中定义函数
+		2 在模块中增加测试代码
+		3 让你的模块可用
+		4 包
+
+2 探究模块
+	1 模块中有什么
+		1 使用dir
+		2 __all__ 变量
+	2 用help获取帮助
+	3 文档
+	4 源代码
+
+3 标准库
+	1 sys
+	2 os
+	3 fileinput
+	4 集合、堆和双端队列
+	5 time
+	6 random
+	7 shelve
+	8 re
+	9 functools difflib hashlib csv timeit profile trance-timeit datetime itertools logging getopt optparse cmd 
+4 小结
+	dir(obj)		help([obj])		reload(module)
+	

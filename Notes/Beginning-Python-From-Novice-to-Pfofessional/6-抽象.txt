@@ -1,0 +1,33 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T13:32:14+00:00
+
+====== 6-抽象 ======
+Created 星期五 04 三月 2016
+
+1 懒惰即美德
+
+2 抽象和结构
+
+3 创建函数
+	1 文档化函数
+	2 并非真正函数的函数
+
+4 参数魔法
+	1 值从哪里来
+	2 我能改变参数吗
+	3 关键字参数和默认值
+	4 收集参数
+	5 参数收集的逆过程
+	6练习使用参数
+
+5 作用域
+
+6 递归
+	1 阶乘和幂
+	2 二分查找
+	
+7 小结
+	新函数：map(func,seq [,seq, ...])	filter(func,seq)	feduce(func,seq [,initial])	sum(seq) 	apply(func[,args[,kwargs]]) 
+
+

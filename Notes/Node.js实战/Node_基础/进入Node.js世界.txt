@@ -1,0 +1,59 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-02-28T22:16:39+08:00
+
+====== 进入Node.js世界 ======
+Created 星期日 28 二月 2016
+
+
+===== 1.1 构建于javascript之上 =====
+
+===== 1.2 异步和事件触发：浏览器 =====
+
+===== 事件驱动（事件轮询）和非阻塞的I/O（异步I/O） =====
+
+===== 1.3 异步和事件出发：服务器 =====
+
+===== 1.4  DIRT程序 =====
+===== DIRT（data-intensive real_time)程序 ，数据密集型实时程序。 =====
+===== 1.5 默认DIRT程序 =====
+===== 1.简单的异步程序： =====
+
+===== var fs = require('fs'); =====
+
+===== fs.feadFile('./resource.json',function(er,data){ =====
+
+===== console.log(data); =====
+
+===== }) =====
+
+===== 2.HTTP服务器 =====
+
+===== var http = require('http'); =====
+
+===== http.createServer(function (req,res){ =====
+
+===== res.writeHead(200,{'Content-Type':'text/plain'}); =====
+
+===== res.end('Hello World\n'); =====
+
+===== }).listen(3000); =====
+
+===== console.log('Server running at http://localhost:3000/'); =====
+
+===== 3.流数据 =====
+
+===== var stream = fs.createReadStream('./resource.json') =====
+
+===== stream.on('data',function(chunk){ =====
+
+===== console.log(chunk) =====
+
+===== }) =====
+
+===== stream.on('end',function(){ =====
+
+===== console.log('finished') =====
+
+===== }) =====
+===== 1.6  小结 =====

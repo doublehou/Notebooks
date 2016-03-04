@@ -1,0 +1,16 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T14:38:56+00:00
+
+====== 12-图形用户界面 ======
+Created 星期五 04 三月 2016
+
+1 丰富的平台
+
+2 wxPython
+
+3 创建示例GUI 程序
+
+4 但是我宁愿用。。。	
+	1 Tkinter
+	2 Jython和Swing

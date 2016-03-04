@@ -1,0 +1,19 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T14:40:36+00:00
+
+====== 13-数据库支持 ======
+Created 星期五 04 三月 2016
+
+1 Python数据库编程接口API
+	1 全局变量
+	2 异常
+	3 连接和游标
+	4 类型
+2 SQLite和PySQLite
+	1 入门
+	2 数据库应用程序示例
+	
+3 小结
+	connect(...)
+	

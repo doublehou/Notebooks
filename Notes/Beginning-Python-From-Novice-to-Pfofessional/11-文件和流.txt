@@ -1,0 +1,28 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T14:34:26+00:00
+
+====== 11-文件和流 ======
+Created 星期五 04 三月 2016
+
+1 打开文件
+	1 文件模式
+	2 缓冲
+
+2 基本的文件方法
+	1 读和写
+	2 管式输出
+	3 读写行
+	4 关闭文件
+	5 使用基本文件方法
+	
+3 对文件内容进行迭代
+	1 按字节处理
+	2 按行操作
+	3 读取所有内容
+	4 使用fileinput实现懒惰行迭代
+	5 文件迭代器
+
+4 小结
+	file(name[, mode [,buffering]])		open(name[, mode[, buffering]])
+	

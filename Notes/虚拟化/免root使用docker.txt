@@ -1,0 +1,8 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2015-12-07T15:55:23+08:00
+
+====== 免root使用docker ======
+Created 星期一 07 十二月 2015
+
+=== 将用户加入docker组 。（注意，docker组几乎有root权限） ===

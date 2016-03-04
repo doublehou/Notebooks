@@ -1,0 +1,50 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-01T21:16:10+08:00
+
+====== Connect自带的中间件 ======
+Created 星期二 01 三月 2016
+
+cookieParser()	bodyParser()	limit()	query()	logger()	favicon()	methodOverride()	vhost()	session()	basicAtuth()	csrf()	errorHandler()	static()	compress()	directory()
+
+===== 7.1 解析cookie，请求主体和查询字符串的中间件 =====
+
+=== 1 cookieParser() ===
+
+=== 2 bodyParser() ===
+ 
+
+=== 3 limit() ===
+   
+
+=== 4 query() ===
+
+===== 7.2 实现Web程序核心功能的中间件 =====
+
+=== 1 logger() ===
+
+=== 2 favicon() ===
+
+=== 3 methodOverride() ===
+
+=== 4 vhost() ===
+
+=== 5 session() ===
+
+===== 7.3 处理Web程序安全的中间件 =====
+
+=== 1 basicAuth() ===
+ 
+
+=== 2 csrf() ===
+
+=== 3 errorHandler() ===
+
+===== 7.4 提供静态文件服务的中间件 =====
+
+=== 1 static() ===
+
+=== 2 compress() ===
+
+=== 3 directory() ===
+

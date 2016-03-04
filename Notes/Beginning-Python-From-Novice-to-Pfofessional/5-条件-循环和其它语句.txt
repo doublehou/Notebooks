@@ -1,0 +1,45 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T13:05:34+00:00
+
+====== 5-条件-循环和其它语句 ======
+Created 星期五 04 三月 2016
+
+1 print 和 import的更多信息
+	1 使用逗号输出
+	2 把某件事作为另一件事导入
+
+2 赋值魔法
+	1 序列解包
+	2 链式赋值
+	3 增量赋值
+
+3 语句块
+
+4 条件和条件语句
+	1 这就是布尔变量的作用
+	2 条件执行和if语句
+	3 else子句
+	4 elif子句
+	5 嵌套代码块
+	6 更复杂的条件：比较运算符，相等运算符，is-同一性运算符，in-成员资格运算符，字符串和序列比较，布尔运算符，断言。
+
+5 循环
+	1 while循环
+	2 for循环
+	3 循环遍历字典元素
+	4 一些迭代工具：并行迭代，按索引迭代，翻转和排序迭代
+	5 跳出循环：break，continue，while Ture/break，
+	6 else子句
+
+6 列表推导式-轻量级循环
+
+7 三人行
+	1 pass
+	2 del
+	3 使用exec和eval执行和求值字符串
+
+8 小结
+	新函数：chr(n)	eval(source[,globals[,locals]])	enumerate(seq)	ord(c)	range([start,] stop[,step])
+			reversed(seq)	sorted(seq[,cmp][,key][,reverse])	xrange([start,] stop[,step])	zip(seq1,_seq2,...)
+

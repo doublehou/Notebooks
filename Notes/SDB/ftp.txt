@@ -1,0 +1,101 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2015-12-08T22:49:28+08:00
+
+====== 架设 FTP 服务器 ======
+Created 星期二 08 十二月 2015
+
+选择 FTP 服务器端程序
+
+openSUSE 自带了下列 FTP 服务器端程序，自行选择一个：
+
+	pure-ftpd
+	vsftpd
+	ftpd（包含在 krb5-apps-servers 软件包中）
+
+pure-ftpd
+特性
+
+	可以作独立模式的 ftp 服务器
+	可以与 xinetd 结合使用
+	很多特性，如 PAM 支持， IPv6， chroot() 的主目录，虚拟域名，内置 LS， 防破解系统，带宽控制，FXP，被动模式端口限制，上传下载比率控制，Apache 日志文件等等
+
+配置文件
+
+	/etc/pam.d/pure-ftpd
+	/etc/pure-ftpd/pure-ftpd.conf
+	/etc/xinetd.d/pure-ftpd
+
+vsftpd
+特性
+
+	可以与 xinetd 结合使用
+	安全第一的设计原则
+	小，轻量级软件
+
+安装
+
+	从 YAST/软件管理 搜索安装 vsftpd（安装盘上有）
+
+设置
+
+vsftpd 有两种模式，独立模式和 xinetd 模式。
+
+独立模式需要你在开机后手动以 root 执行 vsftpd 命令启动 FTP 服务器，xinetd 模式则不一直运行FTP后台，只有有用户向你的 FTP 服务器发出 ftp 请求时立即启动 FTP 服务器后台程序。后者需要机器启动时打开 xinetd 服务，在 SUSE/SLED 系列是默认的设置。先确定你要选择哪种模式，然后进行之后的设置。
+独立模式
+
+	root权限编辑文件 /etc/vsftpd.conf，确定 listen=YES 前面没有 #。如果有，去掉保存。
+
+xinetd 模式
+
+	YAST -> 网络服务 -> 网络服务 (xinetd)，启用，并将下面列表中 vsftpd 状态设为开。
+	root权限编辑文件 /etc/vsftpd.conf，确定 listen=YES 前面加了 #。如果没有，加上保存。
+
+检查运行状况和防火墙设置
+
+	检查 FTP 服务器是否在正常运行，默认配置文件是允许匿名用户只读的，/srv/ftp/ 作为对外 FTP 的主目录。
+	如果必要，调整防火墙设置。如果是用默认的SuSEFirewall2，在 YaST-系统-/etc/sysconfig 编辑器，network-firewall-SuSEfirewall2 把 ftp 添加到 FW_SERVICES_EXT_TCP，比如你还要打开 ssh 那么
+
+FW_SERVICES_EXT_TCP="ftp ssh"
+
+	如果你需要被动模式 FTP 和 nat，在 YaST-系统-/etc/sysconfig 编辑器，network-firewall-SuSEfirewall2
+
+FW_LOAD_MODULES="ip_conntrack_ftp ip_nat_ftp"
+
+重启之后，vsftpd 将会按照你选择的模式运行。
+简明配置
+
+配置要修改文件 /etc/vsftpd.conf.
+
+	启用向服务器的写权限，去掉下面一行前面的＃
+
+write_enable=YES
+
+	允许本地用户登录，去掉下面一行前面的＃
+
+local_enable=YES
+
+	默认，一个用户不能访问自己主目录之外的目录，要禁用去掉下面一行前面的＃
+
+chroot_local_user=NO
+
+	禁用匿名用户登录
+
+anonymous_enable=NO
+
+配置文件
+
+	/etc/logrotate.d/vsftpd
+	/etc/pam.d/vsftpd
+	/etc/vsftpd.conf
+	/etc/vsftpd.chroot_list
+
+	此文件包含对服务器上所有FTP内容有权限的用户名。对其他用户来说，他们在服务器上的主目录对他们显示为根目录。 
+
+	/etc/shells
+
+	在允许本地用户登录之前，系统默认检查是否有有效的用户 shell。以防 PAM 认证不可用的情况。 
+
+	/etc/ftpusers
+
+	此文件包含*禁止*FTP登录的用户名，通常有 "root"， "uucp"， "news" 之类，因为这些用户权限太高，登录 FTP 误操作危险性大。 

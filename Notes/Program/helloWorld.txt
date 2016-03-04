@@ -1,0 +1,98 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2015-12-10T14:07:22+08:00
+
+====== helloWorld ======
+Created 星期四 10 十二月 2015
+
+===== python2 : =====
+	print  "helloWorld!"
+
+
+===== python3 : =====
+	print('helloWorld!')
+
+
+===== C : =====
+	#include<stdio.h>
+	int main(){
+		printf("%s","helloWorld!");
+		return 0;
+	}
+	
+===== C++ : =====
+	#include <iostream>
+	using namespace std;
+	int main(void){
+		cout << "helloWorld!";
+	}
+	  
+
+===== java : =====
+	class helloWorld{
+		public static void main(String[] args){
+			System.out.println("helloWorld!);
+		}
+	}
+	
+===== ruby : =====
+	puts "helloWorld!"
+	
+===== basic : =====
+	Public Sub Main()
+		print "helloWorld"
+	end
+
+
+===== php : =====
+	<?php
+		echo "helloWorld!";
+	?>
+
+
+===== shell : =====
+	echo "hello World"
+	
+===== R : =====
+	print("helloWorld")
+	
+===== Scratch : =====
+	(en..just drag )
+
+
+===== octave : =====
+	printf("helloWorld")
+
+
+===== golang : =====
+	package main
+	import "fmt"
+	func  main(){
+		fmt.println("helloWorld")
+	}
+
+
+===== perl : =====
+	print "helloWorld'
+
+
+===== D : =====
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

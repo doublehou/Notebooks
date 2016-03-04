@@ -1,0 +1,28 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T13:44:24+00:00
+
+====== 7-更加抽象 ======
+Created 星期五 04 三月 2016
+
+1 对象的魔力
+	1 多态
+	2 封装
+	3 继承
+
+2 类和类型
+	1 类到底是什么
+	2 创建自己的类
+	3 特性、函数和方法
+	4 类的命名空间
+	5 指定超类
+	6 检查继承
+	7 多个超类
+	8 接口和内省
+
+3 一些关于面向对象设计的思考
+
+4 小结
+	新函数：callable(object)		getattr(object,name[,default])		hasattr(object,name)		isinstance(object ,class)
+			  issubclass(A,B)		random.choice(sequence) 	setattr(object,name,value)		type(object)
+

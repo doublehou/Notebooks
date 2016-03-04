@@ -1,0 +1,29 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T14:54:26+00:00
+
+====== 16-测试 ======
+Created 星期五 04 三月 2016
+
+1 先测试，后编码
+	1 精确的需求说明
+	2 为改变而计划
+	3 测试的四个步骤：
+				1 指出需要的新特性
+				2 编写特性的骨架代码
+				3 为特性的骨架编写哑代码
+				4 重构
+
+2 测试工具
+	1 doctest
+	2 unittest
+
+3 单元测试以外的内容
+	1 使用PyChecker和PyLint检查源代码
+	2 性能分析
+
+4 小结
+	doctest.testmod(module)
+	unittest.main()
+	profile.run(stmt[,filename])
+	

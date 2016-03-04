@@ -1,0 +1,95 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2015-12-08T22:10:15+08:00
+
+====== 制作 tarball 为 rpm 包 ======
+Created 星期二 08 十二月 2015
+
+===== ==准备== =====
+[http://www.linuxfans.org/nuke/modules.php?name=Site_Downloads&op=geninfo&did=4376 下载]
+
+将 client[l].tar.gz 文件拷到 usr/src/packages/SOURCES
+
+  cp -r client[l].tar.gz /usr/src/packages/SOURCES
+
+把 client[l].tar.gz 改名，以便记忆
+
+  mv client[l].tar.gz client.tar.gz
+
+===== ==解压缩== =====
+把 client.tar.gz 解开放在 SOURCES 目录下
+
+  tar -zxvf client.tar.gz
+
+===== ==书写 spec 文件== =====
+在 /usr/src/packages/SPECS 下写 spec 文件，起名为 client.spec
+
+  vi client.spec
+
+=== 如下书写 spec 文件 ===
+
+<pre>
+Summary: H3c Client                                                            
+Name:     Linux1x 
+Version: 1.1.0
+Release: 1
+Source: client.tar.gz
+License: HuaWei
+Group:   Net/Tools
+%description
+This software is used for login the net of educationDetail is written on Readme
+%prep
+%setup -c
+%install
+cd client
+install -m 755 linux1x /usr/local/bin/linux1x
+install -m 755 renew.ps /usr/local/bin/renew.ps
+install -m 755 pre.ps /usr/local/bin/pre.ps
+%files
+/usr/local/bin/linux1x
+/usr/local/bin/renew.ps
+/usr/local/bin/pre.ps
+</pre>
+
+=== ===具体说明 1=== ===
+对于 spec 文件
+
+<pre>
+summary 	 	是对软件的简单介绍
+Name 	 	是软件的名称，最好用简单明了的名称
+Version 	 	是软件的版本
+Release 	 	是发行的版本，可以认为是 Version 的版本
+Source 	 	刚才我们的 tarball 文件
+License 	 	认证的公司或组织
+Group 	 	属于的类别（这里是网络类的工具 Net/Tools）
+description 	注意，此处用 % 开始，可以在下面写多行，表示对软件的详细介绍
+</pre>
+
+=== ===具体说明 2=== ===
+接下来进行安装阶段
+
+<pre>
+%prep 	 	软件的预安装阶段，可以在下面添自己此时需要的 shell code
+%setup 	 	安装设置阶段
+%install 	 	安装阶段，此时安装了三个可执行的文件到 /usr/local/bin 下
+%files 	 	文件列表，列出所需文件
+</pre>
+
+=== ==build Rpm== ===
+此时，我们就可以建造 rpm 包了
+
+在 /usr/src/packages/SPEC 下输入命令
+
+  rpmbuild -bb client.spec
+
+将看到自动搭建 rpm 包的过程，最后提示你成功或失败的消息
+
+=== ==检验阶段== ===
+
+进入 /usr/src/packages/RPMS
+
+看到 {Name}-{Version}-{Summary}.rpm 存在
+
+执行确认无错误即可
+
+

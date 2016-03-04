@@ -1,0 +1,38 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T10:09:27+00:00
+
+====== 2-列表和元组 ======
+Created 星期五 04 三月 2016
+
+1 Python 内建6种序列：列表 ，元组，字符串，Unicode字符串，buffer对象，xrange对象。
+
+2 通用序列操作：索引，切片，序列相加，乘法，成员资格（in运算符)，长度、最大值和最小值。
+
+3 列表：苦力
+		 1：list函数：根据序列创建列表
+		 2：基本操作：
+			1 改变列表：元素赋值
+				  2 删除元素 
+				  3 分片赋值
+		 3：列表方法：
+			1 append
+			2 count
+			3 extend
+			4 index
+			5 insert
+			6 pop
+			7 remove
+			8 reverse
+			9 sort
+			10 高级排序
+
+4 元组：不可不序列
+		1 tuple函数
+		2 基本操作
+		3 元组的存在意义
+
+5 小结：
+	新函数：cmp(x,y)	len(seq)	list(seq)	max(args)	min(args)	resersed(seq)	sorted(seq)		tuple(seq)
+	
+	

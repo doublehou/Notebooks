@@ -1,0 +1,27 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-01T21:02:50+08:00
+
+====== 存储Node程序中的数据 ======
+Created 星期二 01 三月 2016
+
+===== 5.1 无服务器的数据存储 =====
+
+=== 1 内存存储 ===
+
+=== 2 基于文件的存储 ===
+
+===== 5.2 关系型数据库管理系统 =====
+
+=== 1 mysql ===
+
+=== 2 PostgreSQL ===
+
+===== 5.3 NoSQL 数据库 =====
+
+=== 1 Redis ===
+
+=== 2 MongoDB ===
+
+=== 3 Mongoose ===
+

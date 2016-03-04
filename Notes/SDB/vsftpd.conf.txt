@@ -1,0 +1,506 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2015-12-08T22:56:48+08:00
+
+====== vsftpd.conf ======
+Created 星期二 08 十二月 2015
+
+
+vsftpd.conf——vsftpd的配置文件
+
+概述
+
+vsftpd.conf 可以用来控制vsftpd的多种行为，默认情况下，vsftpd在/etc/vsftpd.conf路径下查找这个文件。然而，你可以通过自定义 vsftpd的命令行参数来改变它。命令行的参数是vsftpd的配置文件的路径名。这种做法是很有用的，因为你也许想要使用一个高级的网络守护进程，例如 xinetd ，在每一个虚拟主机上使用不同的配置文件来启动vsftpd服务。
+
+格式
+
+vsftpd.conf的格式非常简单。每一行不是一个注释就是一个命令。注释行以#号开头并且是被忽略的。一个命令行有以下格式：
+option=value （选项＝值）
+要知道，在option、=、value之间不允许有空白符（空格等），这一点很重要。
+每一个选项在编译时都有一个默认的设置，可以在配置文件中修改它。
+
+布尔值选项
+
+下面是一个布尔选项列表，每一个布尔选项的值可以设置为 YES 或者 NO。
+
+	* allow_anon_ssl
+
+	  只有当ssl_enable被激活才适用。如果设置为 YES，匿名用户允许使用安全的 SSL（安全套接字协议层）连接。
+	  默认：NO
+	* anon_mkdir_write_enable
+
+	  如果设置为 YES，匿名用户在这种情况下将被允许创建新目录。为了使这个能起作用，选项 write_enable 必须被激活，而且匿名的ftp用户在父目录中有写权限。
+	  默认：NO
+	* anon_other_write_enable
+
+	  如果设置为 YES ，匿名用户在进行写操作时除了可以上传（文件）和创建目录外，还可以删除和重命名（文件或目录）。这个通常不推荐使用，但为了完整性确实包含了此选项。
+	  默认：NO
+	* anon_upload_enable
+
+	  如果设置为 YES ，匿名用户在这种情况下将被允许上传文件。为了使这个能起作用，选项 write_enable 必须被激活，而且匿名ftp用户在想要上传的路径下有写权限。这项设置也是虚拟用户获得上传权限所必需的；默认情况下，虚拟用户等同对待于匿名用户（i.e最大限度限制）的权限。
+	  默认：NO
+	* anon_world_readable_only
+
+	  如果启用（该选项），匿名用户将只被允许下载具有全局可读的文件。它能识别ftp用户是否文件的属主，尤其是在文件上传的情形。
+	  默认：YES
+	* anonymous_enable
+
+	  控制是否允许匿名用户登录。如果允许，用户名ftp和anonymous被识别为匿名用户登录。
+	  默认：YES
+	* ascii_download_enable
+
+	  如果启用，下载时将以ASCII模式进行数据传输。
+	  默认：NO
+	* ascii_upload_enable
+
+	  如果启用，上传时将以ASCII模式进行数据传输。
+	  默认：NO
+	* async_abor_enable
+
+	  如果启用，一个特殊的FTP命令“async ABOR”将被启用。只有那些比较差劲的FTP终端才会使用这项功能。另外，这项功能的实现有点棘手，所以默认是不启用的。不幸的是，一些FTP终端在取消（数据）传输时会被挂起，除非启用了该项功能，所以，你也许想要启用它。
+	  默认：NO
+	* background
+
+	  如果启用，vsftpd则以“监听”模式启动，vsftpd将在后台监听进程。i.e.控制将直接返回启动vsftpd的shell。
+	  默认：NO
+	* check_shell
+
+	  注意！该选项只对没有编译PAM模块的vsftpd有效。如果禁用（该选项），vsftpd将不会为本地的有效用户登录时检查/etc/shells。
+	  默认：YES
+	* chmod_enable
+
+	  如果启用，则允许使用SITE CHMOD命令。注意，这只适用于本地用户，匿名用户永远不会拥有SITE CHMOD的使用权的。
+	  默认：YES
+	* chown_enable
+
+	  如果启用，所有的匿名用户上传文件的所有者将改变为定义在chown_username设置中的用户。从管理或者安全的角度来看，这是十分有用的。
+	  默认：NO
+	* chroot_list_enable
+
+	  如果激活（该选项），你应该提供一个在登录时被chroot()限定在其主目录下的本地用户列表。如果chroot_local_user选项设置为YES，则（该选项）意思稍微不同，在这种情况下，这个列表则变成了不受chroot()限制的用户列表。默认情况下，包含这个用户列表的文件是 /etc/vsftpd.chroot_list，但是你可以通过chroot_list_file选项来更改它。(ps：这里不好翻译，下面是英文原文：If activated, you may provide a list of local users who are placed in a chroot() jail（监牢、监狱） in their home directory upon login.The meaning is slightly different if chroot_local_user is set to YES. In this case, the list becomes a list of users which are NOT to be placed in a chroot() jail. By default, the file containing this list is /etc/vsftpd.chroot_list, but you may override this with the chroot_list_file setting.)
+	  默认：NO
+	* chroot_local_user
+
+	  如果设置为YES，本地用户将被chroot()限定在其主目录下（默认）。警告：这个选项牵连到安全性，尤其在用户拥有上传权限或者使用 shell权限的情况下。只有在你知道自己在做什么时才启用它。要知道这些安全相关性不是vsftpd所特有的，它们适用于所有提供chroot()限定本地用户机制的FTP守护进程。（英文原文：If set to YES, local users will be (by default) placed in a chroot() jail in their home directory after login. Warning:This option has security implications, especially if the users have upload permission, or shell access. Only enable if you know what you are doing. Note that these security implications are not vsftpd specific. They apply to all FTP daemons which offer to put local users in chroot() jails.）
+	  默认：NO
+	* connect_from_port_20
+
+	  该选项控制端口类型数据连接是否使用服务器上的20号端口（ftp-data）。为安全起见，一些客户端主张使用这种情况。相反地，禁用该选项使得vsftpd服务以更少的特权运行。
+	  默认：NO（但是示例配置文件中启用它）
+	* debug_ssl
+
+	  如果为真，openSSL连接的诊断信息转储到vsftpd的日志文件。（版本2.0.6中才添加的功能）
+	  默认：NO
+	* deny_email_enable
+
+	  如果激活（该选项），你应该提供一个匿名密码电子邮件列表来应答禁止登录。默认情况下，包含这个列表的文件是/etc/vsftpd.banned_emails，但是你可以通过banned_email_file设置更改它。
+	  默认：NO
+	* dirlist_enable
+
+	  如果设置为NO，将禁用所有的显示目录内容的命令。
+	  默认：YES
+	* dir_message_enable
+
+	  如果启用，用户进入到一个新的目录时，FTP服务器将显示一段消息。默认情况下，（服务器）会搜索目录中的.message文件，但是你可以通过配置选项message_file来更改它。
+	  默认：NO（但是示例配置文件中启用它）
+	* download_enable
+
+	  如果设置为NO，所有的下载请求将会被拒绝。
+	  默认：YES
+	* dual_log_enable
+
+	  如果启用，将会并行生成两个日志文件，默认情况下日志将保存到/var/log/xferlog和/var/log/vsftpd.log。前者是wu-ftpd风格的传送日志，能够被标准的工具分析。后者是vsftpd风格日志。
+	  默认：NO
+	* force_dot_files
+
+	  如果激活，以 . 开头的文件和目录在列举目录内容时将会被显示，即使客户端程序没有使用“a”标志。这个将使得排除“.”和“..”的记录无效。
+	  默认：NO
+	* force_anon_data_ssl
+
+	  只适用于ssl_enable开启的情况。如果激活（该选项），在数据连接（非控制连接）时所有的匿名登录用户将被强制使用安全SSL连接以发送和接收数据。
+	  默认：NO
+	* force_anon_logins_ssl
+
+	  只适用于ssl_enable的情况。如果激活，所有的匿名登录将被强制使用安全SSL连接来发送密码。
+	  默认：NO
+	* force_local_data_ssl
+
+	  只适用于ssl_enable开启的情况。如果激活，在数据连接时所有的非匿名登录将被强制使用安全SSL连接来发送和接收数据。
+	  默认：YES
+	* force_local_logins_ssl
+
+	  只适用于ssl_enable的情况。如果激活，所有非匿名登录将被强制使用安全SSL连接来发送密码。
+	  默认：YES
+	* guest_enable
+
+	  如果启用，所有的非匿名登录将归类为“guest”登录。一个guest登录被重新映射为guest_username设置所指定的用户。
+	  默认：NO
+	* hide_ids
+
+	  如果启用，则所有的用户和用户组信息在列举目录文件内容时将显示为“ftp”
+	  默认：NO
+	* listen
+
+	  如果启用，vsftpd将以独立模式运行。这意味着vsftpd不能在某些网络守护进程（譬如xinetd）下运行，作为替代，可执行的vsftpd只运行一次，然后监听和处理到达的连接。
+	  默认：NO
+	* listen_ipv6
+
+	  就像监听参数一样，除了vsftpd监听在IPv6套接字上替代IPv4外，这个参数和监听参数是相互排斥的。
+	  默认：NO
+	* local_enable
+
+	  控制是否允许本地登录。如果启用，/etc/passwd（或者与PAM相关）中的普通用户将用来登录，这必须启用所有的非匿名登录，包括虚拟用户。
+	  默认：NO
+	* lock_upload_file
+
+	  如果启用，所有的上传进程在上传文件上附加一个写锁。所有的下载进程在下载文件中附加一个共享读琐。警告！在启用这个之前，要意识到不怀好意的读进程会饿死一个因为没有资格追加一个文件的写进程。
+	  默认：YES
+	* log_ftp_protocol
+
+	  如果启用，所有的FTP请求和应答都被记录。提供的xferlog_std_format选项将不能使用。（该选项）对调试有用。
+	  默认：NO
+	* ls_recurse_enable
+
+	  如果启用，该设置将允许使用“ls －R”，这是一个次要的安全风险，因为在一个大型站点的顶级目录使用ls －R将消耗大量的系统资源。
+	  默认：NO
+	* mdtm_write
+
+	  如果启用，该设置将允许 MDTM 设置文件的更改时间（通常访问检测的主体）
+	  默认：YES
+	* no_anon_password
+
+	  如果启用，它将禁止vsftpd询问匿名用户的密码。——匿名用户将可以直接登录。
+	  默认：NO
+	* no_log_lock
+
+	  如果启用，它将禁止vsftpd在写日志文件时附加文件锁。该选项通常不启用。这在一些操作系统上存在bugs，例如在Solaris/Veritas混合文件系统中，锁日志文件时中已经注意到了一些悬而未决的问题。
+	  默认：NO
+	* one_proccess_model
+
+	  如果使用Linux 2.4 的内核，每一个连接使用单一进程则可以使用一个不同的安全模式。它不是一个纯粹安全的模式，不过它可以提高性能。一般你不会真正想启用它，除非你知道自己在做什么，而且你的站点支持同时连接巨大数量的用户。
+	  默认：NO
+	* passwd_chroot_enable
+
+	  这里不好翻译，直接帖原文吧。原文：If enabled, along with chroot_local_user , then a chroot() jail（监牢、监狱） location may be specified on a per-user basis. Each user’s jail is derived（起源于、取得） from their home directory string in /etc/passwd. The occurrence（事件、出现） of /./ in the home directory string denotes（指示、表示） that the jail is at that particular location in the path.
+	  默认：NO
+	* pasv_addr_resolve
+
+	  如果你想在pasv_address选项上使用hostname（于IP地址相对），那么把它设置为YES
+	  默认：NO
+	* pasv_enable
+
+	  如果你想禁止以被动模式获取数据连接，那么把它设置为NO
+	  （所谓的PASV（Passive mode transfer，被动传输模式），是指先利用连接端口21建立FTP的控制信道，再由客户端提出数据传输的请求，其中包含数据传输时使用的连接端口号。这是与传统的FTP（PORT FTP）最大的不同，因为传统的FTP是由服务器来定义数据传输时使用的连接端口号。如果启用该选项，则会启用PASV的功能）
+	  默认：YES
+	* pasv_promiscuous
+
+	  设置为YES，如果你想禁用PASV（被动传输模式）安全检查。此项检查可用来确定数据连接是否由控制连接的相同IP地址发出的。只在你清楚自己在做什么时才启用它！唯一合理的用途是在一些安全隧道模式的情形，或者是为了支此传真设备。
+	  默认：NO
+	* port_enable
+
+	  设置为NO，如果你想禁止使用PORT（端口）的方法来建立数据连接。
+	  默认：YES
+	* port_promiscuous
+
+	  设置为YES，如果你想禁用PORT（端口）安全检查。此项检查可用来确定传送的数据仅能连接到客户端，只在你清楚自己在做什么时才启用它！
+	  默认：NO
+	* require_cert
+
+	  如果设置为YES，所有的SSL（Security Socket Layer 安全套接字协议层）客户端连接都需要提供一个客户端签证。根据该签证被批准的程度由validate_cert控制。
+	  默认：NO
+	* run_as_launching_user
+
+	  设置为YES，如果你想以启动vsftpd的用户身份来运行vsftpd。这在root不能使用的地方十分有用。MAS-SIVE WARNING! Do NOT enable this option unless you totally know what you are doing, as 囗囗囗囗囗 use of this option can create mas-sive security problems.特别的，vsftpd不是/，当启用该选项时，将不能使用chroot技术来限制文件的读取权限，即使是以root身份启动 vsftpd。（原文：Specifically, vsftpd does not / cannot use chroot technology to restrict file access when this option is set (even if launched by root).）一个不是很好的替代是使用一个deny_file文件，并设置为{/*,*..*}，但这个的可靠性比不上chroot，所以不应该依赖这个。如果启用该选项，许多限制也将会应用在其他选项上。例如，一些需要一定特权的选项比方说非匿名登录、文件上传、文件所有权的更改、从20号端口连接以及监听端口小于1024等将不能像预期一样的工作（are not expected to work）。其他选项也将会受到影响。
+	  默认：NO
+	* secure_email_list_enable
+
+	  设置为YES，如果你只希望特定的e-mail passwords（以e-mail作为密码）列表的匿名登录才被接受。这在作为一种比较不很麻烦的不需要使用虚拟用户来限制访问低安全性的内容十分有用。如果启用，匿名登录将被阻止，除非提供的密码列举在由email_password_file设置指定的文件中。该文件的格式是每一个密码一行，没有额外的空白符。默认的文件名/etc/vsftpd.email_passwords。
+	  默认：NO
+	* session_support
+
+	  该选项控制vsftpd是否保持登录会话。如果vsftpd保持会话，它将尝试更新utmp和wtmp，如果使用PAM验证模块，也将开启一个 pam_session，而且仅当登出时才关闭。你也许希望禁用该选项，如果你不需要会话记录，或者你希望vsftpd以更少的线程来运行以及/或者更少的权限。注意——utmp和wtmp仅当启用內建的PAM模块时才被支持。
+	  默认：NO
+	* setproctitle_enable
+
+	  如果启用该选项，vsftpd将尝试在系统的进程列表中显示会话的状态信息。换言之，进程的汇报名称将反映vsftpd会话的状态（空闲、正在下载等）。出于安全的目的，你也许希望保持关闭该选项。
+	  默认：NO
+	* ssl_enable
+
+	  如果启用该选项，vsftpd将编译带有OpenSSL的依赖，vsftpd将通过SSL支持安全连接。这适用于控制连接（包括登录）和数据连接。你还将需要客户端支持SSL。注意！仅当你有这个需要才启用它。vsftpd并不能保证OpenSSL库的安全性。如果启用该选项，意味者你相信你所安装的OpenSSL库的安全性。
+	  默认：NO
+	* ssl_sslv2
+
+	  仅适用于ssl_enable开启的情况，如果启用，该选项将允许SSL(Secure Sockets Layer) v2（版本2）协议的连接。TLS(Transport Layer Security) v1连接首选。
+	  默认：NO
+	* ssl_sslv3
+
+	  仅适用于ssl_enable开启的情况，如果启用，该选项将允许SSL v3协议的连接。TLS v1连接首选。
+	  默认：NO
+	* ssl_tlsv1
+
+	  仅适用于ssl_enable开启的情况，如果启用，该选项将允许TLS v1协议的连接。TLS v1连接首选。
+	  默认：YES
+	* syslog_enable
+
+	  如果启用，则所有原本输出到/var/log/vsftpd.log日志输出将转移到系统日志，日志的记录由FTPD设备完成。
+	  默认：NO
+	* tcp_wrappers
+
+	  如果启用，而且vsftpd编译了tcp_wrappers支持模块，接入的连接将被送往tcp_wrappers访问控制。而且，还有一个基于每一个IP的配置机制。如果tcp_wrappers设置了VSFTPD，接入的连接将被送往tcp_wrappers访问控制。而且，还有一个基于每一个 IP的配置机制(可以利用/etc/hosts.allow与/etc/hosts.deny文件来定义可连接或拒绝的来源地址——这就是 tcp_wrappers？)。如果tcp_wrappers设置了VSFTPD_LOAD_CONF环境变量，那么vsftpd会话将尝试加载由这个变量指定的vsftpd的配置文件。
+	  默认：NO
+	* text_userdb_names
+
+	  默认情况，在列出（使用ls -al之类的命令）目录中的文件时，用户和组域显示数字形式的ID。如果启用该参数，你将获得文本形式的名字（ID）。处于性能的考虑，默认情况下是关闭的。
+	  默认：NO
+	* tilde_user_enable
+
+	  （tilde意思为：波浪字符）如果启用该选项，vsftpd将尝试解析诸如~chris/pics的路径名。i.e.跟随在波浪字符之后的用户名。Note that vsftpd将会一直解析~和~/something的路径名（这种情况，~被解析为初始登录的目录）。Note that ~user路径仅仅在/etc/passwd文件在_current_chroot() jail（监狱、牢狱）限定的范围内能找到的情况下才被解析。
+	  默认：NO
+	* use_localtime
+
+	  如果启用，vsftpd将在（使用ls -al之类的命令）列举目录中文件时附带显示你当前时区时间。默认情况显示GMT（格林威治时间）。由MDTM FTP命令返回的时间也受该选项的影响。
+	  默认：NO
+	* use_sendfile
+
+	  一个用来测试在你的平台上使用sendfile()系统调用的相关效能的内部设置。
+	  默认：YES
+	* userlist_deny
+
+	  该选项用来检查userlist_enable是否启用。如果你（把该设置）设置为NO，，那么用户将被拒绝登录，除非ta们被明确的记录在由userlist_file指定的文件中。当登录被拒绝时，拒绝（登录）发生在询问用户密码之前。
+	  默认：YES
+	* userlist_enable
+
+	  如果启用，vsftpd将从userlist_file提供的文件中加载一个用户名列表，如果一个用户登录时使用的用户名列举在该文件中，那么ta 们将在被询问密码之前就被拒绝（登录）了。这或许在阻止明文密码被传输时有用。又见于userlist_deny（See also userlist_deny）。
+	  默认：NO
+	* validate_cert
+
+	  如果设置为yes，接受到的所有的SSL终端签证必须验证通过。Self-signed（自定义？）的签证不能被验证通过。
+	  默认：NO
+	* virtual_use_local_privs
+
+	  如果启用，虚拟用户将拥有和本地用户一样的权限。默认情况下，虚拟用户使用和匿名用户一样的权限，或者限制更加严格一些（尤其是写权限）。
+	  默认：NO
+	* write_enable
+
+	  该选项控制是否允许那些能够改变文件系统的FTP命令生效。这些命令有：STOP，DELE，RNFR，RNTO，MKD，RMD，APPE and SITE.
+	  默认：NO
+	* xferlog_enable
+
+	  如果启用，日志文件将包含上传和下载的细节。默认情况，该文件将被放置在/var/log/vsftpd.log，不过这个位置可以使用vsftpd_log_file配置选项来更改。
+	  默认：NO（但是示例配置文件中启用它）
+	* xferlog_std_format
+
+	  如果启用，传输日志文件将以标准的xferlog格式书写，就像wu-ftpd使用的一样。这个也许有用，因为你可以再使用现有的传输日志来生成统计信息。默认的格式可读性更好，然而，这种风格的日志文件默认的路径是/var/log/xferlog，但是你可以使用xferlog_file配置选项来更改它。
+	  默认：NO
+     
+数值选项
+
+	  下面是数值选项列表。一个数值选项必须设置为一个非负的整数。为了方便掩码选项，支持八进制数。为了指定一个八进制数，使用0作为该数字的第一个数值位。
+	* accept_timeout
+
+	  超时，以秒为单位，用来表示远程终端（用户）使用被动传输模式建立数据连接的超时时间。
+	  默认：60
+	* anon_max_rate
+
+	  表示匿名用户进行连接时允许的最大数据传输速率，以Bytes/Second为单位。
+	  默认：0（没有限制）
+	* anon_umask
+
+	  这个选项设置匿名用户登录后创建文件的umask（权限屏蔽位）值。注意，如果你想指定为八进制数值，记住前缀“0”并不等同于基数为10的整数中的“0”（翻译有点别扭，原文：NOTE! If you want to specify octal values, remember the “0″ prefix otherwise the value will be treated as a base 10 integer!）。
+	  默认：077
+	* chown_upload_mode
+
+	  强制匿名用户上传文件chown()ed的文件模式（即被chown()后的文件模式）。
+	  默认：0600
+	* connect_timeout
+
+	  表示远程用户应答PORT传输模式的数据连接的超时时间，以秒为时间单位。
+	  默认：60
+	* data_connection_timeout
+
+	  表示建立数据连接的最长超时时间，以秒为时间单位。
+	* delay_failed_login
+
+	  终止（登录）并报告登录失败的时间间隔，单位为秒。(原文：The number of seconds to pause prior to reporting a failed login.)
+	  默认：1
+	* delay_successful_login
+
+	  暂停（登录）并允许再次登录的时间间隔，单位为秒。(原文：The number of seconds to pause prior to allowing a successful login.)
+	  默认：0
+	* file_mode
+
+	  上传文件的权限属性。掩码在该值上有效，你也许希望把它改变为0777，如果你想要上传的文件拥有可执行权限。
+	  默认：0666
+	* ftp_data_port
+
+	  使用哪一个端口发起PORT（端口）连接（等同于启用一个比较弱的connect_from_port_20选项）
+	  默认：20
+	* idle_session_timeout
+
+	  idle（意思：空闲时间），空闲会话超时时间，单位为秒。表示远程用户发送FTP命令请求的最大时间间隔。如果超时，远程用户将被踢出（服务）。
+	  默认：300
+	* listen_port
+
+	  如果vsftpd以standalone模式运行，vsftpd将在（该选项指定的）该端口上监听接入的FTP连接。
+	  默认：21
+	* local_max_rate
+
+	  表示（被验证为）本地用户进行连接时允许的最大数据传输速率，单位为Bytes/Second。
+	  默认：0（没有限制）
+	* local_umask
+
+	  该值设置本地用户创建文件的权限屏蔽位。NOTE! If you want to specify octal values, remember the “0″ prefix otherwise the value will be treated as a base 10 integer!
+	  默认：077
+	* max_clients
+
+	  如果vsftpd以standalone模式运行，该选项设置vsftpd允许的最大用户连接数。任何额外的用户连接将会报错（得到一个错误的消息）。
+	  默认：0（没有限制）
+	* max_login_fails
+
+	  该选项设置多少次登录失败后杀死会话。
+	  默认：3
+	* max_per_ip
+
+	  如果vsftpd以standalone模式运行，该选项设置允许来自同一个源网络地址（IP）的最大终端（用户）连接数。如果用户连接超出了该限制将会报错（得到一个错误的消息）。
+	  默认：0（没有限制）
+	* pasv_max_port
+
+	  可分配给被动传输模式的数据连接的最大端口。该选项可用来协助防火墙缩小端口的范围。
+	  默认：0（使用任意端口）
+	* pasv_min_port
+
+	  分配给被动传输模式的数据连接的最小端口。该选项可用来协助防火墙缩小端口范围。
+	  默认：0（使用任意端口）
+	* trans_chunk_size
+
+	  你也许不想改变它，但是尝试把它设置为8192之类来获得更加平滑的带宽限制。
+	  默认：0（让vsftpd自动选择一个合理的设置）
+     
+字符串选项
+
+	  下面是一个字符串选项列表
+	* anon_root
+
+	  该选项指代vsftpd在匿名用户登录后要切换到的目录。Failure is silently ignored。
+	  默认：（none）
+	* banned_email_file
+
+	  该选项是一个文件名，该文件包含有不允许登录的匿名用户的e-mail口令列表。这个是启用deny_email_enable选项后所要查阅的文件。
+	  默认：/etc/vsftpd.banned_emails
+	* banner_file
+
+	  该选项是一个文件名，该文件包含有用户连接到（ftp）服务器时所要显示的文本（欢迎）信息。如果设置了该选项，它将覆盖由ftpd_banner选项提供的banner string。
+	  默认：（none）
+	* ca_certs_file
+
+	  该选项是一个文件名，该文件是vsftpd为了验证用户的数字证书而从中加载的权威证书的文件(This option is the name of a file to load Certificate Authority certs from, for the purpose of validating client certs.)。可惜的是，默认的SSL CA没有被使用，因为vsftpd使用了chroot限制文件系统空间。
+	  默认：（none）
+	* chown_username
+
+	  这个是匿名上传文件被赋予的文件拥有者的用户名。该选项仅与是否设置了chown_uploads选项相关。
+	  默认：root
+	* chroot_list_file
+
+	  该选项是一个文件名，该文件包含有一个登录后将被chroot()限定在其主目录下的用户列表。该选项仅与是否启用 chroot_list_enable选项相关。如果启用了chroot_local_user选项，那么该列表文件变成了一个不受chroot()限制的用户列表。
+	  默认：/etc/vsftpd.chroot_list
+	* cmds_allowed
+
+	  该选项指定了一个由逗号隔开的被允许使用的FTP命令列表（post login.USER,PASS and QUIT are always allowed pre-login（不明白post login和pre-login指的是啥意思））。其他命令被拒绝使用。这是一个锁定FTP服务器的强大的方法。例子：cmds_allowed=PASV,RETR,QUIT
+	  默认：（none）
+	* deny_file
+
+	  该选项可用来设置不被任何方式访问的文件名模式（或目录名，等等）。受影响的项目并不被隐藏，但所有尝试对它们做任何事情（下载，改变目录，在目录内affect something等等）都会被拒绝。该选项非常简单，所以不能应用于严格的访问控制——应优先使用文件系统的权限控制。然而，该选项在某些虚拟用户的设置中也许比较有用。尤其是在一个文件可以通过多个文件名访问的情况（也许是由于符号链接或硬链接），那么必须采取措施拒绝访问（该文件）所有的文件名。如果文件名包含有hide_file文件列出的字符串或者它们匹配由hide_file指定的正则表达式，那么将拒绝访问该对象。vsftpd的正则表达式匹配代码是正则表达式所有功能中的一个子集的简单实现。正因为这样，你必须细心而且详尽地测试该选项的任何应用。而且出于重要的安全策略考虑，推荐你使用文件系统的权限控制，因为它们更为可靠。支持的正则表达式的语法是所有的数字、*、?和{、}等操作符。正则匹配仅支持路径的最后一个分量，例如，a/b /?被支持而a/?/c不被支持。示例：deny_file={*.mp3,*.mov,.private}
+
+	  默认：（none）
+	* dsa_cert_file
+
+	  该选项指定用来加密SSL连接的DSA证书的位置（路径）
+	  默认：（none ——有一个RSA证书就足够了）
+	* dsa_private_key_file
+
+	  该选项指定用来加密SSL连接的DSA私钥的位置。如果没有设置该选项，则该私钥被预期（be expected）放置在和证书相同的位置。
+	  默认：（none）
+	* email_password_file
+
+	  该选项可用来为secure_email_list_enable选项的使用提供一个可选文件。
+	  默认：/etc/vsftpd.email_passwords
+	* ftp_username
+
+	  这个是用来处理匿名FTP的用户名。该用户的主目录是匿名FTP空间的根。
+	  默认：ftp
+	* ftpd_banner
+
+	  该字符串选项允许你更改vsftpd在一个连接第一次连进来时显示欢迎（问候）信息。
+	  默认：（none——显示默认的vsftpd信息）
+	* guest_username
+
+	  到布尔选项设置guest_enable中查看guest login的组成。该设置指定guest用户映射（be mapped to）的真实用户名。
+	  默认：ftp
+	* hide_file
+
+	  该选项用来设置一个在（使用ls命令等）列出目录中文件时应该隐藏的文件名模式（目录名等）。尽管是隐藏起来，文件、/目录等对于一些知道实际文件名的用户（clients）是完全可以访问的。名字包含有hide_file列出的字符串或者匹配由hide_file指定的正则表达式的对象将被隐藏。 vsftpd的正则表达式匹配代码是正则表达式所有功能中的一个子集的简单实现。更多的可查看deny_file选项中关于正则表达式支持的语法。示例：hide_file={*.mp3,.hidden,hide*,h?}
+	  默认：（none）
+	* listen_address
+
+	  如果vsftpd以standalone模式运行，默认的监听地址（所有的网络接口）可以使用该设置更改。提供一个数值形式的IP地址。
+	  默认：（none）
+	* listen_address6
+
+	  类似listen_address，但是指定默认的监听对象是IPv6地址（仅当设置了listen_ipv6才使用）。格式是标准的IPv6地址格式。
+	  默认：（none）
+	* local_root
+
+	  该选项指定了本地用户（i.e.非匿名用户）登录后vsftpd将要切换到的目录。
+	  默认：（none）
+	* message_file
+
+	  该选项是我们进入到一个新目录时vsftpd所要查找的文件的文件名，该文件的内容将显示给远程用户。该选项仅于是否启用了dirmessage_enable选项相关。
+	  默认：.message
+	* nopriv_user
+
+	  这是vsftpd使用的几乎没有特权的用户名，要注意这应该是一个专用的用户，而不仅仅是nobody。nobody用户在大多数机器上被用于许多重要的事情。
+	  默认：nobody
+	* pam_service_name
+
+	  该字符串是vsftpd将要使用的PAM服务名。
+	  默认：vsftpd
+	* pasv_address
+
+	  使用该选项来更改vsftpd在应答PASV（被动传输模式）命令时公布的IP地址。提供一个数值形式的IP地址，除非启用了pasv_addr_resolve选项，这种情况下你可以提供一个在启动时则被DNS（域名服务）解析主机名。
+	  默认：（none —— 地址取自连接进来的socket）
+	* rsa_cert_file
+
+	  该选项指定用来加密SSL连接的RSA证书的位置（路径）。
+	  默认：/usr/share/ssl/certs/vsftpd.pem
+	* rsa_private_key_file
+
+	  该选项指定用来加密SSL连接的RSA私钥的位置。如果该选项没被设置，那么该私钥预期的位置和证书的相同。
+	  默认：（none）
+	* secure_chroot_dir
+
+	  该选项应该是一个空目录名。而且，ftp用户对该目录没有写权限。偶尔在vsftpd不需要访问文件系统时，该目录被用作一个安全的chroot() jail（监狱）。
+	  默认：/var/run/vsftpd
+	* ssl_ciphers
+
+	  该选项被用来选择vsftpd用来加密SSL连接的SSL密钥。查阅ciphers的手册页面来了解更为详尽的细节。限定ciphers是一个十分有用的安全预警，因为它可以阻止不怀好意的远程团体强制使用一个他们已经发现了问题的密钥。
+	  默认：DES-CBC3-SHA
+	* user_config_dir
+
+	  这个功能强大的选项允许基于（每一个）用户更改在manual page（手册页、指南页面）中指定的任意配置选项。如果你设置user_config_dir为/etc/vsftpd_user_conf，然后使用 “chris”用户登录（FTP服务器），那么vsftpd在整个会话期间将使用/etc/vsftpd_user_conf/chris文件上的设置。该配置文件的格式和手册页描述的细节一样！请注意并不是所有的设置基于每一个用户都生效。例如，许多设置先于用户会话的开始。不影响基于用户的设置行为的例子包括listen_address、banner_file、max_per_ip、max_clients、xferlog_file等。
+	  默认：（none）
+	* user_sub_token
+
+	  该选项结合虚拟用户是十分有用的。它用来为每一个虚拟用户自动生成一个主目录（基于一个模板）。例如，如果由guest_username指定的真实用户的主目录是/home/virtual/$USER，而且user_sub_token设置为$USER，那么当虚拟用户fred登录进来时，ta 将登录到/home/virtual/fred目录（通常已经被chroot()了，原文：usually chroot()’ed）。如果local_root选项包含user_sub_token，该选项依然生效。
+	  默认：（none）
+	* user_list_file
+
+	  该选项是user_list_enable有效时加载的文件的文件名。
+	  默认：/etc/vsftpd.user_list
+	* vsftpd_log_file
+
+	  该选项是写入vsftpd风格的日志文件的文件名。该日志文件只有在设置了xferlog_enable选项而且 xferlog_std_format选项没被设置的情况下才被写入。可供选择的，如果你设置了dual_log_enable选项，该文件依然可以被写入。一个更为复杂的情况——如果你设置了syslog_enable选项，那么该文件不被写入，作为替代，所有的日志输出将被送往系统日志。
+	  默认：/var/log/vsftpd.log
+	* xferlog_file
+
+	  该选项是写入wuftpd风格的日志文件的文件名。仅当设置了xferlog_enable和xferlog_std_format选项，传输日志才被写入（该文件）。可供选择的，如果你设置了dual_log_enable选项，该文件依然可以被写入。
+	  默认：/var/log/xferlog 

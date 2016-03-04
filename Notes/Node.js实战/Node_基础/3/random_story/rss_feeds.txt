@@ -1,0 +1,5 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+
+http://rss.slashdot.org/Slashdot/slashdot
+http://dave.smallpict.com/rss.xml

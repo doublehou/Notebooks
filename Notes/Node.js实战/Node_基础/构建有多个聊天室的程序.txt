@@ -1,0 +1,79 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-02-28T22:59:49+08:00
+
+====== 构建有多个聊天室的程序 ======
+Created 星期日 28 二月 2016
+
+===== 2.1 程序概览 =====
+		   1. 发消息给同一聊天室的所有人
+		   2. 自动分配昵称，但是可以修改
+		   3. 创立聊天室或加入，上侧和右侧显示房间
+		   4. 切换房间
+
+
+===== 2.2 程序需求及初始设置 =====
+		   静态文件（html，css，客户端javascript）
+		   在服务器上处理聊天消息
+			在浏览器中处理聊天消息
+
+			使用mime
+			使用ajax，但是采用了websockt，采用 socket.io
+
+
+=== 1 提供http和websocket服务 ===
+
+=== 2 创建程序的文件结构 ===
+			  -lib
+			  -public
+					 -javascript
+					 -stylesheet
+
+
+=== 3 指明依赖项 ===
+			  package.json :
+	{
+		"name"：“chatrooms”，
+		“version":"0.0.1"
+		"description" : " chat server"
+		"dependencies" "{
+			"socket.io" : "~0.9.6",
+			"mime" :"~1.2.7"
+		}
+	}
+
+
+=== 4 安装依赖项 ===
+
+===== 2.3 提供html，css，和客户端JavaScript的服务 =====
+	 根目录下新建server.js文件
+。。。略，看代码
+[[../chatrooms]]
+
+=== 1 创建静态文本服务器 server.js ===
+	1 发送文件数据和错误响应
+	2  创建http服务器
+	3 启动http服务器
+
+=== 2 添加Html和css文件 ===
+
+===== 2.4 用socket.io处理与聊天相关的消息 =====
+
+=== 1 设置socket.io服务器 ===
+
+=== 2 处理程序场景和事件 ===
+	1 分配昵称
+	2 房间更换请求
+	3 昵称更换请求
+	4 发送聊天消息
+	5 房间创建
+	6 用户断开链接
+
+===== 2.5 在程序的用户界面上使用客户端JavaScript =====
+
+=== 1.将消息和昵称/房间变更请求传给服务器 ===
+
+=== 2.在用户界面显示消息和可用房间 ===
+
+
+

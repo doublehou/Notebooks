@@ -1,0 +1,32 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T14:48:56+00:00
+
+====== 15-Python和Web ======
+Created 星期五 04 三月 2016
+
+1 屏幕抓取
+	1 Tdiy和XHTML解析
+	2 Beautiful Soup
+
+2 使用CGI创建动态网页
+	1 准备网络服务器
+	2 加入Pound Bang行
+	3 设置文件权限
+	4 CGI安全风险
+	5 简单的CGI脚本
+	6 使用cgitb调试
+	7 使用cgi模块
+	8 简单的表单
+
+3 更进一步-mod_python
+
+4 网络应用程序框架
+
+5 Web服务-正确分析
+	1 RSS和相关内容
+	2 使用XML-RPC进行远程过程调用
+	3 SOAP
+6 小结
+	cgitb.enable()
+	

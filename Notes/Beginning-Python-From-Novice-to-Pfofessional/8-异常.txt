@@ -1,0 +1,33 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T14:13:15+00:00
+
+====== 8-异常 ======
+Created 星期五 04 三月 2016
+
+1 什么是异常
+
+2 按自己的方式出错
+	1 raise语句	一些内建异常
+	2 自定义异常类
+
+3 捕捉异常
+
+4 不止一个except子句
+
+5 用一个块捕捉两个异常
+
+6 捕捉对象
+
+7 真正的全捕捉
+
+8 万事大吉
+
+9 最后 - - - - -
+
+10 异常和函数
+
+11 异常之禅
+
+12 小结
+	warnings.filterwarnings(action,...)

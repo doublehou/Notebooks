@@ -1,0 +1,25 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-01T22:26:51+08:00
+
+====== 测试Node程序 ======
+Created 星期二 01 三月 2016
+
+===== 10.1 单元测试 =====
+
+=== 1 assert模块 ===
+
+=== 2 Nodeunit ===
+
+=== 3 Mocha ===
+
+=== 4 vows ===
+
+=== 5 should.js ===
+
+===== 10.2 验收测试 =====
+
+=== 1 Tobi ===
+
+=== 2 Soda ===
+	soda和selenium

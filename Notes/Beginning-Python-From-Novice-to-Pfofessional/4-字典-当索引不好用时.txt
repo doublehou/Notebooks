@@ -1,0 +1,29 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T12:57:23+00:00
+
+====== 4-字典-当索引不好用时 ======
+Created 星期五 04 三月 2016
+
+1 字典的使用
+
+2 创建和使用字典
+	1 dict函数
+	2 基本字典操作
+	3 字典的格式化字符串
+	4 字典方法：
+			1 clear
+			2 copy
+			3 fromkeys 
+			4 get
+			5 has_key
+			6 items       iteritems
+			7 keys         iterkeys
+			8 pop
+			9 popitem
+					 10 setdefault
+			   11 update
+			   12 values	itervalues
+3 小结
+	新函数 dict(seq)
+	

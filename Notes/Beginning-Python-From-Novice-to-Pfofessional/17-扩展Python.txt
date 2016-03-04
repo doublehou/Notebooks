@@ -1,0 +1,22 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T14:58:26+00:00
+
+====== 17-扩展Python ======
+Created 星期五 04 三月 2016
+
+1 考虑哪个更重要
+
+2  Jython和IronPython
+
+3 编写C语言扩展
+	1 SWIG
+	2 自己研究
+	
+4 小结
+	Py_INCREF(obj)
+	Py_DECREF(obj)
+	PyArg_ParseTuple(args,fmt,...)
+	PyArg_parseTupleAndKeywords(args,kws,fmt,kwlist)
+	PyBuildValue(fmt,value)
+	

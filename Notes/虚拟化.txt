@@ -1,0 +1,7 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2015-12-09T10:52:34+08:00
+
+====== 虚拟化 ======
+Created 星期三 09 十二月 2015
+

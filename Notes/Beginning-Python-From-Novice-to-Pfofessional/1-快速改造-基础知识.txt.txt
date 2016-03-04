@@ -1,0 +1,21 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-03-04T10:02:27+00:00
+
+====== 1-快速改造-基础知识.txt ======
+Created 星期五 04 三月 2016
+
+1 安装
+
+2 交互式解释器
+
+3 算法
+
+4 - 11 ：数字，表达式，变量，语句，获得用户输入，函数，模块，保存并执行，字符串。
+
+12 小结：新函数：abs(number)      cmath.sqrt(number)       float(object)      help()      input(prompt)
+				 int(object)            long(object)           math.ceil(number)     math.floor(number)   math.sqrt(number)
+				 pow(x,y[,z])         raw_input(prompt)         repr(object)       round(number[,ndigits])   str(object)
+
+
+
