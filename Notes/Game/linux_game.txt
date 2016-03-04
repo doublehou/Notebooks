@@ -5,6 +5,8 @@ Creation-Date: 2015-12-15T21:41:58+08:00
 ====== linux game ======
 Created 星期二 15 十二月 2015
 
+===== swell-foop			消色块 =====
+
 ===== mari0 =====
 
 ===== exterme-tuxracer      etr   企鹅滑行 =====
